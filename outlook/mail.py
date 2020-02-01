@@ -6,7 +6,7 @@ import time
 import datetime
 import win32com.client
 
-os.system('cls')
+os.system('clear')
 date_time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
 outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
 folders = outlook.Folders

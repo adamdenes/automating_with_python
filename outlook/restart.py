@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from subprocess import Popen
 import sys
 import time
+from subprocess import Popen
 
 filename = sys.argv[1]
 
