@@ -10,7 +10,7 @@ while True:
     try:
         print("\nStarting " + filename)
         p = Popen("python " + filename, shell=True)
-        time.sleep(120)
+        time.sleep(60)
         p.wait()
 
     except KeyboardInterrupt:
