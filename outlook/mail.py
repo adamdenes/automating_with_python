@@ -12,6 +12,9 @@ from openpyxl.utils import get_column_letter, column_index_from_string
 shift_path = "\\\iuser\\hubufsr\\ROC\\GCSO\\Special\\Admin\\Shifts\\"
 shift = "AMS-SDD schedule 2020.xlsx"
 
+date_time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
+print(f"Operation started at {date_time}")
+
 def open_schedule(f_path, file):
     
     if os.path.isfile(f_path + file):
@@ -83,13 +86,11 @@ def create_dictionary(c_shifts, a_list):
 absent, present = create_dictionary(current_shifts, agent_list)
 
 
-date_time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
 outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
 folders = outlook.Folders
 
 inboxes = [folders[folder].Name for folder in range(folders.Count)]
 boxes = [i for i in inboxes if "adam" not in i]
-print(f"Operation started at {date_time}")
 print(boxes, "\n")
 
 def generate_mailboxes(box_lst):
@@ -127,6 +128,8 @@ def move_mails(item_in_mailb):
         categ = categories.split(',')
         
         if not categories:
+            continue
+        elif len(categ) > 3:
             continue
         elif str(message.Sender) == str(sender):
             #print(sender, message.Sender)
