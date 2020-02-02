@@ -12,8 +12,6 @@ from openpyxl.utils import get_column_letter, column_index_from_string
 shift_path = "\\\iuser\\hubufsr\\ROC\\GCSO\\Special\\Admin\\Shifts\\"
 shift = "AMS-SDD schedule 2020.xlsx"
 
-date_time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
-print(f"Operation started at {date_time}")
 
 def open_schedule(f_path, file):
     
@@ -129,19 +127,19 @@ def move_mails(item_in_mailb):
         
         if not categories:
             continue
-        elif len(categ) > 3:
+        elif len(categ) > 4:
             continue
         elif str(message.Sender) == str(sender):
             #print(sender, message.Sender)
             print(f"ticket: {categ[0].strip()} => {processed}")
-            print(f"\tmoving {categ[0].strip()} to folder => {processed}")
+            print(f"\tmoving {categ[0].strip()} to folder => {sender} - {processed}")
             message.Move(processed)
             time.sleep(1)
         else:
             print(f"ticket: {categ[0].strip()} => assignee: {categ[1].strip()} => mail arrived: {message.CreationTime}")
             for p_sub in item_in_mailb[4]:
                 if (str(categ[1].strip()) in str(p_sub)) and (not str(categ[1].strip()) in absent):
-                    print(f"\tmoving {categ[0].strip()} to folder => {p_sub}")
+                    print(f"\tmoving {categ[0].strip()} to folder => {sender} - {p_sub}")
                     #print("\n", message.Sender,"\n", message.To, "\n ", message.Subject,"\n", message.CreationTime,"\n", "_________" * 10)
                     message.Move(p_sub)
                     messages = item_in_mailb[1].Items
@@ -151,6 +149,8 @@ def move_mails(item_in_mailb):
 def main(mailboxes):
 
     for mailb in mailboxes:
+        date_time = datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S")
+        print(f"Operation started at {date_time}")
         move_mails(mailb)
 
 #main([SDD, AMS, CSC])
