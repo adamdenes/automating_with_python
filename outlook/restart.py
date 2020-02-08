@@ -8,11 +8,11 @@ filename = sys.argv[1]
 
 while True:
     try:
-        print("\nStarting " + filename)
+        #print("\nStarting " + filename)
         p = Popen("python " + filename, shell=True)
         time.sleep(60)
         p.wait()
 
     except KeyboardInterrupt:
-        print("\n\n* Program aborted by user. Exiting...*\n")
+        print("\n\n* Program aborted by user. Exiting... *\n")
         sys.exit()
